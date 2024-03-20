@@ -15,8 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<CustomerDBContext>(option => {
-    option.UseSqlServer(builder.Configuration.GetConnectionString("TrainingDB"));
-    //option.UseSqlServer(Environment.GetEnvironmentVariable("eshopConnectString"));
+    //option.UseSqlServer(builder.Configuration.GetConnectionString("TrainingDB"));
+    option.UseSqlServer(Environment.GetEnvironmentVariable("eshopConnectString"));
 });
 
 builder.Services.AddScoped<ICustomerRepositoryAsync, CustomerRepositoryAsync>();
