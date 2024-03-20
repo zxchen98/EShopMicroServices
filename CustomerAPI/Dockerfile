@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 8080
-ENV eshopConnectString = "Data Source=localhost,1433;Persist Security Info=True;User ID=sa;Password=980521Zxc;Trust Server Certificate=True"
+ENV eshopConnectString = "Data Source=50.224.238.228,1433;Initial Catalog=EShop;Persist Security Info=True;User ID=sa;Password=980521Zxc;Trust Server Certificate=True"
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release

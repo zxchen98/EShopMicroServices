@@ -1,4 +1,5 @@
-﻿using ApplicationCore.Entities;
+﻿using ApplicationCore.Contracts.IService;
+using ApplicationCore.Entities;
 using ApplicationCore.Models.RequestModels;
 using ApplicationCore.Models.ResponseModels;
 using AutoMapper;
@@ -12,10 +13,10 @@ namespace CustomerAPI.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        private readonly CustomerServiceAsync _customerService;
+        private readonly ICustomerServiceAsync _customerService;
         private readonly IMapper _mapper;
 
-        public CustomerController(CustomerServiceAsync customerService, IMapper mapper)
+        public CustomerController(ICustomerServiceAsync customerService, IMapper mapper)
         {
             _customerService = customerService;
             _mapper = mapper;
@@ -27,8 +28,8 @@ namespace CustomerAPI.Controllers
             try
             {
                 var customers = await _customerService.GetAllCustomersAsync();
-                var customerResponseModels = _mapper.Map<IEnumerable<Customer>, IEnumerable<CustomerResponseModel>>(customers);
-                return Ok(customerResponseModels);
+                var customerResponseList = customers.Select(customer => _mapper.Map<Customer, CustomerResponse>(customer));
+                return customerResponseList.ToList();
             }
             catch (Exception ex)
             {

@@ -12,9 +12,9 @@ namespace Infrastructure.Service
 {
     public class CustomerServiceAsync : ICustomerServiceAsync
     {
-        private readonly IBaseRepositoryAsync<Customer> _customerRepository;
+        private readonly ICustomerRepositoryAsync _customerRepository;
 
-        public CustomerServiceAsync(IBaseRepositoryAsync<Customer> customerRepository)
+        public CustomerServiceAsync(ICustomerRepositoryAsync customerRepository)
         {
             _customerRepository = customerRepository;
         }
