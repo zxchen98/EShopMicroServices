@@ -10,4 +10,10 @@
     <ProjectReference Include="..\ApplicationCore\CustomerAPI.ApplicationCore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Service\" />
+    <Folder Include="Repository\" />
+  </ItemGroup>
+
 </Project>
