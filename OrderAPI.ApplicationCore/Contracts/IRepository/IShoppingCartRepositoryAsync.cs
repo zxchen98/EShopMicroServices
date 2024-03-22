@@ -9,5 +9,7 @@ namespace OrderAPI.ApplicationCore.Contracts.IRepository
 {
     public interface IShoppingCartRepositoryAsync:IBaseRepositoryAsync<ShoppingCart>
     {
+        Task<int> SaveChangesAsync();
+        Task<ShoppingCart> GetShoppingCartByIdAsync(int id);
     }
 }

@@ -12,11 +12,12 @@ namespace OrderAPI.helper
             CreateMap<Order, OrderResponse>().ReverseMap();
             CreateMap<OrderRequest, Order>().ReverseMap();
 
-            CreateMap<ShoppingCart, ShoppingCartResponse>().ReverseMap();
-            CreateMap<ShoppingCartRequest, ShoppingCart>().ReverseMap();
+            CreateMap<ShoppingCart, ShoppingCartResponse>()
+                .ForMember(dest => dest.Items, opt => opt.MapFrom(src => src.Items));
+            CreateMap<ShoppingCartRequest, ShoppingCart>();
 
-            CreateMap<ShoppingCartItem, ShoppingCartItemResponse>().ReverseMap();
-            CreateMap<ShoppingCartItemRequest, ShoppingCartItem>().ReverseMap();
+            CreateMap<ShoppingCartItem, ShoppingCartItemResponse>();
+            CreateMap<ShoppingCartItemRequest, ShoppingCartItem>();
         }
     }
 }

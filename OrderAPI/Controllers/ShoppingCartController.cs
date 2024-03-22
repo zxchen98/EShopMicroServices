@@ -27,7 +27,9 @@ namespace OrderAPI.Controllers
             var shoppingCart = new ShoppingCart
             {
                 Items = new List<ShoppingCartItem>(),
-                Price = 0
+                Price = 0,
+                OrderDate = DateTime.Now,
+                OrderStatus = "Processing"
             };
 
             var _shoppingCartId = await _shoppingCartService.CreateShoppingCartAsync(shoppingCart);

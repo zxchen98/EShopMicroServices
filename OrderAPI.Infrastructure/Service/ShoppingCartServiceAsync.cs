@@ -42,7 +42,7 @@ namespace OrderAPI.Infrastructure.Service
 
         public async Task<ShoppingCart> GetShoppingCartByIdAsync(int shoppingCartId)
         {
-            return await _shoppingCartRepository.GetByIdAsync(shoppingCartId);
+            return await _shoppingCartRepository.GetShoppingCartByIdAsync(shoppingCartId);
         }
 
         public async Task<IEnumerable<ShoppingCart>> FilterShoppingCartsAsync(Expression<Func<ShoppingCart, bool>> filter)
@@ -52,7 +52,7 @@ namespace OrderAPI.Infrastructure.Service
 
         public async Task<int> AddItemsToShoppingCartAsync(int shoppingCartId, IEnumerable<ShoppingCartItem> items)
         {
-            var shoppingCart = await _shoppingCartRepository.GetByIdAsync(shoppingCartId);
+            var shoppingCart = await _shoppingCartRepository.GetShoppingCartByIdAsync(shoppingCartId);
             if (shoppingCart == null)
             {
                 throw new KeyNotFoundException("Shopping cart not found.");
@@ -73,11 +73,11 @@ namespace OrderAPI.Infrastructure.Service
                     shoppingCart.Items.Add(item);
                 }
             }
-
-            return shoppingCart.Items.Count;
+            await _shoppingCartRepository.SaveChangesAsync();
+            return 1;
         }
 
-        public async Task<bool> DecreaseProductQuantityAsync(int shoppingCartId, int productId)
+        public async Task<int> DecreaseProductQuantityAsync(int shoppingCartId, int productId)
         {
             var shoppingCart = await _shoppingCartRepository.GetByIdAsync(shoppingCartId);
             if (shoppingCart == null)
@@ -101,9 +101,8 @@ namespace OrderAPI.Infrastructure.Service
                 await _shoppingCartItemRepository.DeleteAsync(item.Id);
                 shoppingCart.Items.Remove(item);
             }
-
-
-            return true;
+            await _shoppingCartRepository.SaveChangesAsync();
+            return 1;
         }
 
     }
