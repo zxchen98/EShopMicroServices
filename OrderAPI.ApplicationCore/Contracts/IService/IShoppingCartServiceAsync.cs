@@ -19,6 +19,6 @@ namespace OrderAPI.ApplicationCore.Contracts.IService
 
         Task<int> AddItemsToShoppingCartAsync(int shoppingCartId, IEnumerable<ShoppingCartItem> items);
 
-        Task<bool> DecreaseProductQuantityAsync(int shoppingCartId, int productId);
+        Task<int> DecreaseProductQuantityAsync(int shoppingCartId, int productId);
     }
 }

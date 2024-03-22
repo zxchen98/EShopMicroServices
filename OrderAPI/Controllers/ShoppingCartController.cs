@@ -5,6 +5,7 @@ using OrderAPI.ApplicationCore.Contracts.IService;
 using OrderAPI.ApplicationCore.Entities;
 using OrderAPI.ApplicationCore.Models.RequestModels;
 using OrderAPI.ApplicationCore.Models.ResponseModels;
+using System.Net.Http;
 
 namespace OrderAPI.Controllers
 {
@@ -14,11 +15,14 @@ namespace OrderAPI.Controllers
     {
         private readonly IShoppingCartServiceAsync _shoppingCartService;
         private readonly IMapper _mapper;
+        private readonly HttpClient _httpClient;
 
-        public ShoppingCartController(IShoppingCartServiceAsync shoppingCartService, IMapper mapper)
+        public ShoppingCartController(IShoppingCartServiceAsync shoppingCartService, IMapper mapper, HttpClient client)
         {
             _shoppingCartService = shoppingCartService;
             _mapper = mapper;
+            _httpClient = client;
+            _httpClient.BaseAddress = new Uri("http://host.docker.internal:59913");
         }
 
         [HttpPost]
@@ -57,7 +61,7 @@ namespace OrderAPI.Controllers
 
             if (resultCount > 0)
             {
-                return Ok(new { Message = $"Items successfully added. Total items count: {resultCount}." });
+                return Ok(new { Message = $"Items successfully added." });
             }
 
             return BadRequest("Unable to add items to the shopping cart.");
@@ -69,7 +73,7 @@ namespace OrderAPI.Controllers
             try
             {
                 var success = await _shoppingCartService.DecreaseProductQuantityAsync(shoppingCartId, productId);
-                if (success)
+                if (success==1)
                 {
                     return Ok(new { Message = "The product quantity was decreased successfully." });
                 }

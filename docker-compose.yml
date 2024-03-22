@@ -6,10 +6,14 @@ services:
     build:
       context: .
       dockerfile: CustomerAPI/Dockerfile
+    ports:
+    - 59914:8080
 
   productapi:
     image: ${DOCKER_REGISTRY-}productapi
     build:
       context: .
       dockerfile: ProductAPI/Dockerfile
+    ports:
+    - 59913:8080
 
