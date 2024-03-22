@@ -13,10 +13,13 @@ namespace ProductAPI.Infrastructure.Service
     public class ReviewServiceAsync : IReviewServiceAsync
     {
         private readonly IReviewRepositoryAsync _reviewRepository;
+        private readonly IProductRepositoryAsync _productRepository;
 
-        public ReviewServiceAsync(IReviewRepositoryAsync reviewRepository)
+        public ReviewServiceAsync(IReviewRepositoryAsync reviewRepository, IProductRepositoryAsync productRepository)
         {
             _reviewRepository = reviewRepository;
+            _productRepository = productRepository;
+
         }
 
         public async Task<int> CreateReviewAsync(Review review)

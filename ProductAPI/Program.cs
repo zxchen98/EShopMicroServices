@@ -14,8 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TrainingDB")));
+builder.Services.AddDbContext<ProductDbContext>(options => {
+
+        //options.UseSqlServer(builder.Configuration.GetConnectionString("TrainingDB"));
+        options.UseSqlServer(Environment.GetEnvironmentVariable("eshopConnectString"));
+});
 
 
 builder.Services.AddAutoMapper(typeof(Program));
